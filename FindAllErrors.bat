@@ -1,6 +1,10 @@
 @echo off
 setlocal enabledelayedexpansion
 
+:: Define carret variable for carriage return
+set "carret=\r"
+
+:START
 set /p "=Establishing connection" <nul
 for /L %%i in (1,1,60) do (
     set /p "=." <nul
@@ -39,7 +43,7 @@ if not exist "%CYBERPUNKDIR%\bin\x64\Cyberpunk2077.exe" (
   echo.
   echo Deploying Roving Autonomous Bartmoss Interface Drones....
   FOR /L %%S IN (10, -1, 1) DO (
-    set /p =%%S ...!carret!<nul
+    set /p "=%%S ...!carret!"<nul
     ping -n 2 127.0.0.1 > nul 2>&1
   )
   goto :eof
@@ -48,7 +52,7 @@ if not exist "%CYBERPUNKDIR%\bin\x64\Cyberpunk2077.exe" (
 :: ====================================================================
 
 :: visualc redistributable version
-set VC_VERSION=14.42.34433.0
+set VC_VERSION=14.42.34438.0
 
 :: game version (of executable)
 set LATESTVERSION=3.0.78.57301
@@ -58,7 +62,7 @@ set LATESTVERSION=3.0.78.57301
 echo.
 echo Please select an option:
 echo.
-echo 1. Delete all log files and launch the game (you should cause your issue to happen in game, then run this script again and select option 2)
+echo 1. Delete all log files
 echo.
 echo 2. Check for errors
 echo.
@@ -79,23 +83,9 @@ if "%userOption%"=="1" (
     echo Deploying Datamine
 ) else (
     echo Invalid option, please enter 1 or 2.
-    goto START
+    goto :START
 )
 
-::if not, deploy R.A.B.I.D.S and shut down
-if not exist "%CYBERPUNKDIR%\bin\x64\Cyberpunk2077.exe" (
-  echo.
-  echo Wake the f*ck up Samurai! This isn't your Cyberpunk install directory
-  echo Either place me in your Cyberpunk 2077 folder and try again
-  echo or drag and drop it onto me from Windows Explorer
-  echo.
-  echo Deploying Roving Autonomous Bartmoss Interface Drones....
-  FOR /L %%S IN (10, -1, 1) DO (
-    set /p =%%S ...!carret!<nul
-    ping -n 2 127.0.0.1 > nul 2>&1
-  )
-  goto :eof
-)
 :: Check if the LOGS folder already exists in the install directory, if not, create it
 if not exist "%CYBERPUNKDIR%\_LOGS" mkdir "%CYBERPUNKDIR%\_LOGS"
 
@@ -116,7 +106,7 @@ if not "!version!"=="%LATESTVERSION%" (
   echo.
   echo Deploying Roving Autonomous Bartmoss Interface Drones....
   FOR /L %%S IN (10, -1, 1) DO (
-    set /p =%%S ...!carret!<nul
+    set /p "=%%S ...!carret!"<nul
     ping -n 2 127.0.0.1 > nul 2>&1
   )
   echo Done. You can leave now.
@@ -218,7 +208,7 @@ if defined cet_found (
 )
 
 if not defined redscript_missing (
-	echo
+	echo.
     echo Redscript: installed correctly >> "%output_file%"
 )
 
